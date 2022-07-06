@@ -66,11 +66,23 @@ function getUV(){
         .then(function(response){
             console.log("UV data", response)
             uv = response.current.uvi
+            var colorCode
+            if(uv >= 8){
+                colorCode = "bg-danger"
+            } else if(uv >= 3){
+                colorCode = "bg-warning"
+            } else {
+                colorCode = "bg-success"
+            }
+            var uvTitle = $("<h5>").text("UV Index: ").addClass("d-flex flex-row")
+            uvTitle.append($("<h5>").text(" "+uv).addClass(colorCode))
+            $(".curr-temp-cont").append(uvTitle)
+             
         })
 }
 
 function displayCurrentTemp(data){
-    var currTempCont = $("<div>").addClass("container d-flex flex-column")
+    var currTempCont = $("<div>").addClass("container d-flex flex-column curr-temp-cont")
     var iconUrl = "http://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png"
     var img = $("<img>").attr("src", iconUrl)
     img.attr("alt", "Weather Icon")
