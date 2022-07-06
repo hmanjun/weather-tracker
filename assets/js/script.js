@@ -1,5 +1,7 @@
 var searchHistory = []
 var infoCont = $(".info-container")
+var lon
+var lat
 
 $(document).on("click", "#search-btn", function(event){
     var cityName = $(this).siblings("#city-search-val").val()
@@ -20,17 +22,46 @@ function addToHistory(name){
 
 function getWeatherData(name){
     var getUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + name + "&units=imperial&appid=410463b3935acea56c8171825dbb4440"
+    //var getUrl = "https://api.openweathermap.org/data/2.5/onecall?q="+name+"&exclude=hourly&units=imperial&appid=410463b3935acea56c8171825dbb4440"
+    //var getUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=410463b3935acea56c8171825dbb4440"
+    getGeoLocation(name)
+    
     $.ajax({
         url: getUrl,
         method: "GET"
     })
         .then(function(response){
+            console.log(lon,lat)
             console.log(response)
+            //getUV(name)
             addToHistory(name)
-            //console.log(response.list[0].main["temp"])
-            //console.log(response.list[0].dt_txt)
+            console.log(response.list[0].main["temp"])
+            console.log(response.list[0].dt_txt)
             displayCurrentTemp(response)
             displayForecastCards(response)
+        })
+}
+
+function getGeoLocation(name){
+    $.ajax({
+        url: "https://api.openweathermap.org/geo/1.0/direct?q=" + name + "&limit=1&appid=410463b3935acea56c8171825dbb4440",
+        method: "GET"
+    })
+        .then(function(response){
+            console.log("geo loc", response)
+            lon = response[0].lon
+            lat = response[0].lat
+        })
+}
+
+function getUV(name){
+    var getUrl = "https://api.openweathermap.org/data/2.5/onecall?"+name+"&units=imperial&appid=410463b3935acea56c8171825dbb4440"
+    $.ajax({
+        url: getUrl,
+        method: "GET"
+    })
+        .then(function(response){
+            console.log("UV data", response)
         })
 }
 
