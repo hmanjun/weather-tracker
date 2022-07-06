@@ -2,6 +2,7 @@ var searchHistory = []
 var infoCont = $(".info-container")
 var lon
 var lat
+var uv
 
 $(document).on("click", "#search-btn", function(event){
     var cityName = $(this).siblings("#city-search-val").val()
@@ -51,17 +52,20 @@ function getGeoLocation(name){
             console.log("geo loc", response)
             lon = response[0].lon
             lat = response[0].lat
+            getUV()
         })
 }
 
-function getUV(name){
-    var getUrl = "https://api.openweathermap.org/data/2.5/onecall?"+name+"&units=imperial&appid=410463b3935acea56c8171825dbb4440"
+function getUV(){
+    console.log(lat, lon)
+    var getUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=3279c108edd62f03f66f2e92780c6761"
     $.ajax({
         url: getUrl,
         method: "GET"
     })
         .then(function(response){
             console.log("UV data", response)
+            uv = response.current.uvi
         })
 }
 
