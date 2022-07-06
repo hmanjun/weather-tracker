@@ -1,9 +1,13 @@
 var searchHistory = []
+if(JSON.parse(localStorage.getItem("weatherHistory"))){
+    searchHistory = JSON.parse(localStorage.getItem("weatherHistory"))
+}
 var infoCont = $(".info-container")
 var lon
 var lat
 var uv
 var colorCode
+displayHistory()
 
 $(document).on("click", "#search-btn", function(event){
     var cityName = $(this).siblings("#city-search-val").val()
@@ -19,14 +23,29 @@ function addToHistory(name){
     if(searchHistory.includes(name)){
         return
     }
-    if(searchHistory.length > 9){
+    if(searchHistory.length > 5){
         searchHistory.pop()
     }
     searchHistory.unshift(name)
+    localStorage.setItem("weatherHistory", JSON.stringify(searchHistory))
+    displayHistory()
+    /*
     var histCont = $("#history-cont")
     var cityBtn = $("<button>").addClass("btn btn-secondary text-light my-2 history-btn").text(name)
     cityBtn.attr("data-name", name)
     histCont.prepend(cityBtn)
+    */
+}
+
+function displayHistory(){
+    $("#history-cont").empty()
+    for(var i = 0; i < searchHistory.length; i++){
+        var histCont = $("#history-cont")
+        console.log(searchHistory[i])
+        var cityBtn = $("<button>").addClass("btn btn-secondary text-light my-2 history-btn").text(searchHistory[i])
+        cityBtn.attr("data-name", searchHistory[i])
+        histCont.append(cityBtn)
+    }
 }
 
 function getWeatherData(name){
