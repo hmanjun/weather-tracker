@@ -1,0 +1,21 @@
+header{
+    background-color: darkblue;
+    color: white;
+    height: 80px;
+}
+
+.curr-temp-cont{
+    border: solid;
+    margin-top: 20px;
+    padding: 0px;
+}
+
+.card{
+    margin-right: 8px;
+    color: white;
+    background-color: midnightblue;
+}
+
+.card-cont{
+    padding: 0px;
+}

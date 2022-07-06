@@ -105,7 +105,7 @@ function displayCurrentTemp(data,name){
 
 function displayForecastCards(data){
     var title = $("<h3>").text("5-Day Forecast:").addClass("container")
-    var cardCont = $("<div>").addClass("container d-flex flex-row")
+    var cardCont = $("<div>").addClass("container d-flex flex-row card-cont")
     infoCont.append(title)
     
     for(var i = 0; i < 5; i++){
