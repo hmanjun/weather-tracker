@@ -7,18 +7,26 @@ var colorCode
 
 $(document).on("click", "#search-btn", function(event){
     var cityName = $(this).siblings("#city-search-val").val()
+    cityName = cityName.charAt(0).toUpperCase() + cityName.slice(1)
     getGeoLocation(cityName)
+})
 
+$(document).on("click", ".history-btn", function(){
+    getGeoLocation($(this).attr("data-name"))
 })
 
 function addToHistory(name){
     if(searchHistory.includes(name)){
         return
     }
+    if(searchHistory.length > 9){
+        searchHistory.pop()
+    }
     searchHistory.unshift(name)
     var histCont = $("#history-cont")
-    var cityBtn = $("<button>").addClass("btn btn-secondary text-light my-2").text(name)
-    histCont.append(cityBtn)
+    var cityBtn = $("<button>").addClass("btn btn-secondary text-light my-2 history-btn").text(name)
+    cityBtn.attr("data-name", name)
+    histCont.prepend(cityBtn)
 }
 
 function getWeatherData(name){
@@ -59,6 +67,7 @@ function colorCodeUV(index){
 }
 
 function displayCurrentTemp(data,name){
+    $(".info-container").empty()
     var currTempCont = $("<div>").addClass("container d-flex flex-column curr-temp-cont")
     var iconUrl = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png"
     var img = $("<img>").attr("src", iconUrl)
