@@ -16,6 +16,10 @@ header{
     background-color: midnightblue;
 }
 
+#history-cont{
+    padding: 0px;
+}
+
 .card-cont{
     padding: 0px;
 }
