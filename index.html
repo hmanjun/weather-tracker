@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 
-    <title>Document</title>
+    <title>Weather Tracker</title>
 </head>
 <body>
 
@@ -15,7 +15,8 @@
         <h1 >Weather Tracker</h1>
     </header>
     <div class="container min-vw-100 d-flex flex-row">
-        <aside class="d-flex flex-column col-3">
+        <!--Search Bar on the side + search history-->
+        <aside class="d-flex flex-column col-3"> 
             <h1>Search for a city:</h1>
             <input type="text" val="" id="city-search-val" class="my-2">
             <button class="btn btn-primary my-2" id="search-btn">Search</button>
@@ -23,6 +24,7 @@
                 
             </div>
         </aside>
+        <!--Container for temperature data-->
         <section class="info-container col-9">
     
         </section>
